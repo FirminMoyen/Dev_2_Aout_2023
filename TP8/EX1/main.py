@@ -12,7 +12,6 @@ class Calculator(BoxLayout):
     operation = StringProperty('add')
 
     def calculate(self):
-        # Vérification des entrées
         try:
             num1 = float(self.first_number.text)
             num2 = float(self.second_number.text)

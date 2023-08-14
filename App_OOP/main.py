@@ -1,6 +1,4 @@
 from data import Data
-from book import Book
-from customer import Customer
 from interface import *
 
 

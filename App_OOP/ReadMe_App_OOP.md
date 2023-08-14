@@ -1,32 +1,7 @@
-uen app de gestion de bibliotheque 
+# App OOP perso :
 
-des livres qui peuvent etre loué par des clients 
+Il s'agit d'un gestionaire de bibliotheque utilisable grace a une interface en ligne de commandes,
+grace a cet outil, on peut consulter la liste des livres disponibles, en ajouter ou en supprimer.
+on peut également faire de meme avec les client de cette bibliotheque.
 
-livres : 
-- titre
-- auteur
-- stock
-
-info: all the info displayed
-add book
-remove book
-rent book(qt)
-return book(book)
-
-
-clients :
-- prénom 
-- nom 
-- code postal
-
-info
-full name
-add customer
-remove customer
-
-
-data structure : 
-
-liste de livres
-liste de clients
-liste de livres qui sont loués pour l'instant et par quel clients
+on peut aussi et surtout louer des livre et les rendre 

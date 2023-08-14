@@ -5,12 +5,12 @@ from rented_book import Rented_book
 
 class Data():
     def __init__(self):
-        self.book_list = [Book('coucou', 'firmin', 12),
-                          Book('bonjour', 'thelma', 15),
+        self.book_list = [Book('Da Vinci Code', 'Dan Brown', 12),
+                          Book('La Bible', 'Jesus', 15),
                           Book('Eragon', 'Paolini', 100)]
 
         self.customer_list = [Customer('Firmin', 'Moyen', 6761),
-                              Customer('Thelma', 'Brasseur', 1348),
+                              Customer('Jack', 'Adit', 1348),
                               Customer('Jhon', 'Watson', 1234)]
 
         self.rented_list = [
