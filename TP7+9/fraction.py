@@ -1,3 +1,6 @@
+from math import gcd
+
+
 class Fraction:
     """Class representing a fraction and operations on it
 
@@ -57,6 +60,7 @@ class Fraction:
 
 
 # ------------------ Operators overloading ------------------
+
 
     def __add__(self, other):
         """
@@ -130,6 +134,7 @@ class Fraction:
 
 # ------------------ Properties checking ------------------
 
+
     def is_zero(self):
         """Check if a fraction's value is 0
 
@@ -171,7 +176,10 @@ class Fraction:
         PRE : other is a Fraction
         POST : Returns True if the fractions are adjacent, False otherwise.
         """
-        a, b = self.numerator, self.denominator
-        c, d = other.numerator, other.denominator
+        lcm = (self.denominator *
+               other.denominator) // gcd(self.denominator, other.denominator)
 
-        return abs(a * d - b * c) == 1
+        difference_numerator = (self.numerator * (lcm // self.denominator)) - \
+            (other.numerator * (lcm // other.denominator))
+
+        return abs(difference_numerator) == 1 and lcm == abs(difference_numerator) * other.denominator * self.denominator
