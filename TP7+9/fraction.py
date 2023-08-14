@@ -58,7 +58,6 @@ class Fraction:
 
 # ------------------ Operators overloading ------------------
 
-
     def __add__(self, other):
         """
         Overloading of the + operator for fractions
@@ -104,7 +103,7 @@ class Fraction:
     def __pow__(self, other):
         """Overloading of the ** operator for fractions
 
-        PRE : exponent is an integer
+        PRE : /
         POST : Returns a new Fraction representing self raised to the power of exponent.
         """
         return Fraction(self.numerator ** other, self.denominator ** other)
@@ -130,7 +129,6 @@ class Fraction:
 
 
 # ------------------ Properties checking ------------------
-
 
     def is_zero(self):
         """Check if a fraction's value is 0
@@ -173,5 +171,7 @@ class Fraction:
         PRE : other is a Fraction
         POST : Returns True if the fractions are adjacent, False otherwise.
         """
-        difference = abs(float(self) - float(other))
-        return abs(difference - round(difference)) < 1e-9
+        a, b = self.numerator, self.denominator
+        c, d = other.numerator, other.denominator
+
+        return abs(a * d - b * c) == 1
