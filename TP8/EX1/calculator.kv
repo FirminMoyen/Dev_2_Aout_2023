@@ -1,0 +1,81 @@
+<Calculator>:
+    orientation: 'vertical'
+    first_number: num1
+    second_number: num2
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.4
+        
+        TextInput:
+            id: num1
+            hint_text: 'Entrez le premier nombre'
+        TextInput:
+            id: num2
+            hint_text: 'Entrez le deuxième nombre'
+        Button:
+            text: 'Calculer'
+            on_press: root.calculate()
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.3
+        spacing: 20
+
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 0.7, 0.7, 0.7, 1  # Gris
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            CheckBox:
+                group: 'operation'
+                on_active: root.operation = 'add' if self.active else root.operation
+            Label:
+                text: '+'
+                font_size: 24
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 0.7, 0.7, 0.7, 1  # Gris
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            CheckBox:
+                group: 'operation'
+                on_active: root.operation = 'subtract' if self.active else root.operation
+            Label:
+                text: '-'
+                font_size: 24
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 0.7, 0.7, 0.7, 1  # Gris
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            CheckBox:
+                group: 'operation'
+                on_active: root.operation = 'multiply' if self.active else root.operation
+            Label:
+                text: '*'
+                font_size: 24
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 0.7, 0.7, 0.7, 1  # Gris
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            CheckBox:
+                group: 'operation'
+                on_active: root.operation = 'divide' if self.active else root.operation
+            Label:
+                text: '/'
+                font_size: 24
+
+    Label:
+        text: root.result
+        size_hint_y: 0.3
+        font_size: 24

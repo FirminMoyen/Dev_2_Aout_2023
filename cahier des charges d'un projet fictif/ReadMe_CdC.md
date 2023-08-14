@@ -1,0 +1,2 @@
+# CdC fictif : 
+pour le cahier des charges d'un projet fictif il me semblais me souvenir que j'avais le droit d'utiliser le cahier des charges d'un autre projet réalisé dans le cadre de mes études, j'ai donc choisis d'utiliser le cahier des charge que j'avais réalié pour mon TFE, j'espere que cela convient.
