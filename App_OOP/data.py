@@ -13,7 +13,14 @@ class Data():
                               Customer('Thelma', 'Brasseur', 1348),
                               Customer('Jhon', 'Watson', 1234)]
 
-        self.rented_list = []
+        self.rented_list = [
+            Rented_book(
+                self.customer_list[0], self.book_list[0]),
+            Rented_book(
+                self.customer_list[1], self.book_list[1]),
+            Rented_book(
+                self.customer_list[2], self.book_list[2])
+        ]
 
 
 ### Book list related methodes ###
@@ -21,6 +28,10 @@ class Data():
     def print_book_list(self):
         for book in self.book_list:
             print(book.info)
+
+    def print_book_title_list(self):
+        for book in self.book_list:
+            print(book.title)
 
     def add_book(self, title, autor, stock):
         new_book = Book(title, autor, stock)
@@ -46,6 +57,10 @@ class Data():
         for customer in self.customer_list:
             print(customer.info)
 
+    def print_customer_full_name_list(self):
+        for customer in self.customer_list:
+            print(customer.full_name)
+
     def add_customer(self, first_name, last_name, zip_code):
         new_customer = Customer(first_name, last_name, zip_code)
         self.customer_list.append(new_customer)
@@ -68,6 +83,15 @@ class Data():
         for rent_order in self.rented_list:
             print(rent_order.info)
 
+    def print_rented_book_title(self):
+        for rent_order in self.rented_list:
+            print(rent_order.book.title)
+
+    def print_rented_book_customer_name(self, title):
+        for rent_order in self.rented_list:
+            if rent_order.book.title == title:
+                print(rent_order.customer.full_name)
+
     def rent_book(self, book_title, customer_full_name):
         book = self.book_list[self.get_book_index_by_title(book_title)]
 
@@ -81,6 +105,15 @@ class Data():
         else:
             print('{} is not available anymore').format(book.title)
 
+    def get_rent_order_by_title_and_customer_name(self, title, name):
+        index = 0
+        for order in self.rented_list:
+            if order.customer.full_name == name and order.book.title == title:
+                return index
+            else:
+                index += 1
+
     def return_book(self, rent_order):
         self.rented_list = [
             order for order in self.rented_list if order.book != rent_order.book or order.customer != rent_order.customer]
+        rent_order.book.stock += 1
