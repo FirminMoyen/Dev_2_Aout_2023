@@ -10,4 +10,4 @@ class Customer():
 
     @property
     def info(self):
-        return '{} living in {}'.format(self.info, self.zip_code)
+        return '{} living in {}'.format(self.full_name, self.zip_code)
