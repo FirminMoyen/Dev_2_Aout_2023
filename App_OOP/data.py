@@ -8,11 +8,9 @@ class Data():
         self.book_list = [Book('Da Vinci Code', 'Dan Brown', 12),
                           Book('La Bible', 'Jesus', 15),
                           Book('Eragon', 'Paolini', 100)]
-
         self.customer_list = [Customer('Firmin', 'Moyen', 6761),
                               Customer('Jack', 'Adit', 1348),
                               Customer('Jhon', 'Watson', 1234)]
-
         self.rented_list = [
             Rented_book(
                 self.customer_list[0], self.book_list[0]),
@@ -22,98 +20,76 @@ class Data():
                 self.customer_list[2], self.book_list[2])
         ]
 
-
-### Book list related methodes ###
+    ### Book list related methods ###
 
     def print_book_list(self):
         for book in self.book_list:
             print(book.info)
 
-    def print_book_title_list(self):
-        for book in self.book_list:
-            print(book.title)
-
     def add_book(self, title, autor, stock):
+        if any(book.title == title for book in self.book_list):
+            raise ValueError(
+                f"A book with the title '{title}' already exists.")
         new_book = Book(title, autor, stock)
         self.book_list.append(new_book)
 
-    def get_book_index_by_title(self, title):
-        index = 0
+    def get_book_by_title(self, title):
         for book in self.book_list:
             if book.title == title:
-                return index
-            else:
-                index += 1
+                return book
+        return None
 
     def remove_book(self, title):
-        self.book_list = [
-            book for book in self.book_list if book.title != title]
+        book = self.get_book_by_title(title)
+        if not book:
+            raise ValueError(f"No book with the title '{title}' found.")
+        self.book_list.remove(book)
 
-
-### customer list related methodes ###
-
+    ### customer list related methods ###
 
     def print_customer_list(self):
         for customer in self.customer_list:
             print(customer.info)
 
-    def print_customer_full_name_list(self):
-        for customer in self.customer_list:
-            print(customer.full_name)
-
     def add_customer(self, first_name, last_name, zip_code):
+        if any(c.full_name == f"{first_name} {last_name}" for c in self.customer_list):
+            raise ValueError(
+                f"A customer with the name '{first_name} {last_name}' already exists.")
         new_customer = Customer(first_name, last_name, zip_code)
         self.customer_list.append(new_customer)
 
-    def get_customer_index_by_full_name(self, full_name):
-        index = 0
+    def get_customer_by_full_name(self, full_name):
         for customer in self.customer_list:
             if customer.full_name == full_name:
-                return index
-            else:
-                index += 1
+                return customer
+        return None
 
     def remove_customer(self, full_name):
-        self.customer_list = [
-            customer for customer in self.customer_list if customer.full_name != full_name]
+        customer = self.get_customer_by_full_name(full_name)
+        if not customer:
+            raise ValueError(f"No customer with the name '{full_name}' found.")
+        self.customer_list.remove(customer)
 
-### renting and returning books related methodes ###
-
-    def print_rented_book(self):
-        for rent_order in self.rented_list:
-            print(rent_order.info)
-
-    def print_rented_book_title(self):
-        for rent_order in self.rented_list:
-            print(rent_order.book.title)
-
-    def print_rented_book_customer_name(self, title):
-        for rent_order in self.rented_list:
-            if rent_order.book.title == title:
-                print(rent_order.customer.full_name)
+    ### renting and returning books related methods ###
 
     def rent_book(self, book_title, customer_full_name):
-        book = self.book_list[self.get_book_index_by_title(book_title)]
+        book = self.get_book_by_title(book_title)
+        if not book:
+            raise ValueError(f"No book with the title '{book_title}' found.")
+        if book.stock <= 0:
+            raise ValueError(f"'{book_title}' is not available anymore.")
 
-        customer = self.customer_list[self.get_customer_index_by_full_name(
-            customer_full_name)]
+        customer = self.get_customer_by_full_name(customer_full_name)
+        if not customer:
+            raise ValueError(
+                f"No customer with the name '{customer_full_name}' found.")
 
-        if book.stock > 0:
-            new_rent_order = Rented_book(customer, book)
-            self.rented_list.append(new_rent_order)
-            book.stock = book.stock - 1
-        else:
-            print('{} is not available anymore').format(book.title)
-
-    def get_rent_order_by_title_and_customer_name(self, title, name):
-        index = 0
-        for order in self.rented_list:
-            if order.customer.full_name == name and order.book.title == title:
-                return index
-            else:
-                index += 1
+        new_rent_order = Rented_book(customer, book)
+        self.rented_list.append(new_rent_order)
+        book.stock -= 1
 
     def return_book(self, rent_order):
-        self.rented_list = [
-            order for order in self.rented_list if order.book != rent_order.book or order.customer != rent_order.customer]
+        if rent_order not in self.rented_list:
+            raise ValueError("This rent order does not exist.")
+        self.rented_list.remove(rent_order)
         rent_order.book.stock += 1

@@ -19,8 +19,14 @@ def add_customer_menu(data):
     cls()
     last_name = input('What is the last name of this new customer ?')
     cls()
-    zip_code = int(input('What is the zip code of this new customer ?'))
-    cls()
+    while True:
+        try:
+            zip_code = int(
+                input('What is the zip code of this new customer ?'))
+            cls()
+            break
+        except ValueError:
+            print('zip code shoul be a number')
 
     data.add_customer(first_name, last_name, zip_code)
     print('New customer created !')
